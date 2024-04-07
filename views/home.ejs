@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+    </style>
+<body>
+    <h1>Url Shortner</h1>
+
+    <!-- locals means data coming from backend or In Express.js, locals refers to a property of the response object (res) that is used to pass data from middleware to view templates -->
+    <% if (locals.id) { %>
+    <p>shortid: http://localhost:8001/url/<%=id%></p>
+    <% } %>
+   <div>
+    <form method="POST" action="/url">
+        <label>Enter your URL</label>
+        <input type="text" name="url" placeholder="https://example.com">
+        <button type="submit">Generate</button>
+    </form>
+   </div>
+   <div>
+    <% if (locals.urls) { %>
+    <table>
+        <thead>
+            <th>s.no.</th>
+            <th>shortid</th>
+            <th>RedirectedUrl</th>
+            <th>total clicks</th>
+        </thead>
+        
+        <tbody>
+             <% urls.forEach((url,index) => { %>
+                <tr>
+              <td><%= index+1 %></td>
+              <td><%=url.shortId  %></td>
+              <td><%= url.redirectURL %></td>
+              <td><%= url.visitedHistory.length %></td>
+            </tr>
+             <% }) %>
+        </tbody>
+    
+    </table>
+    <% } %>
+   </div>
+</body>
+</html>
